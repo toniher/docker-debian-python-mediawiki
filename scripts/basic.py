@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*- 
 
 import sys
 import os
@@ -8,7 +9,9 @@ import mwclient
 import argparse
 import time
 
+parser = argparse.ArgumentParser(description="""Script for testing MediaWiki API""")
 parser.add_argument("-config",help="""Path to a JSON file with configuration options!""")
+args = parser.parse_args()
 
 def main(argv):
 		
@@ -16,6 +19,7 @@ def main(argv):
 		user = None
 		password = None
 		protocol = "http"
+		data = {}
 		
 		if args.config:
 				with open(args.config) as json_data_file:
@@ -39,6 +43,14 @@ def main(argv):
 				
 		
 		# Example actions ahead
+		
+		# Retrieve content from article
+		# Notice unicode stuff
+		page = site.pages[u'Universitat Autònoma de Barcelona']
+		
+		if page.exists :
+				# Notice if priting in utf8
+				print page.text().encode('utf8')
 
 
 if __name__ == "__main__":
