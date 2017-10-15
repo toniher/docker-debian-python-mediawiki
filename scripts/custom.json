@@ -1,0 +1,8 @@
+{       
+	"mw": {
+                "host": "localhost",
+                "user": "WikiSysop",
+                "password": "prova",
+                "protocol": "http"
+        }
+}
