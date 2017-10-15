@@ -53,6 +53,7 @@ def main(argv):
 		
 		if page.exists :
 				# Notice if priting in utf8
+				# https://www.mediawiki.org/wiki/API:Main_page -> Retrieve text
 				print page.text().encode('utf8')
 				
 				# Get all links https://www.mediawiki.org/wiki/API:Links
