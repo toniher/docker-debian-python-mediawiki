@@ -8,10 +8,13 @@ import json
 import mwclient
 import argparse
 import time
+import pprint
 
 parser = argparse.ArgumentParser(description="""Script for testing MediaWiki API""")
 parser.add_argument("-config",help="""Path to a JSON file with configuration options!""")
 args = parser.parse_args()
+
+pp = pprint.PrettyPrinter(indent=4)
 
 def main(argv):
 		
@@ -51,7 +54,18 @@ def main(argv):
 		if page.exists :
 				# Notice if priting in utf8
 				print page.text().encode('utf8')
-
+				
+				# Get all links https://www.mediawiki.org/wiki/API:Links
+				# Page object information https://github.com/mwclient/mwclient/blob/master/mwclient/page.py
+				
+				links = page.links()
+				for link in links :
+						print link.name.encode('utf8')
+				
+				# Get all images https://www.mediawiki.org/wiki/API:Images
+				images = page.images()
+				for image in images :
+						print image.name.encode('utf8')
 
 if __name__ == "__main__":
 		main(sys.argv[1:])
