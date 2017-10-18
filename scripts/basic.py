@@ -25,7 +25,7 @@ def main(argv):
         protocol = "http"
         data = {}
         
-        if args.config:
+        if "config" in args:
                 with open(args.config) as json_data_file:
                         data = json.load(json_data_file)
         
@@ -41,7 +41,7 @@ def main(argv):
         
         site = mwclient.Site((protocol, host))
         
-        if user and password :
+        if user and pwd :
                 # Login parameters
                 site.login(user, pwd)
                         
@@ -80,6 +80,19 @@ def main(argv):
                         dt = datetime.datetime.fromtimestamp( time.mktime( revision['timestamp'] ) )
                         revtime = '{}'.format(dt.strftime('%F %T'))
                         print revision['user'].encode('utf8') + " on " + revtime
+
+
+
+		# Retrieve pageviews
+		result = site.api('query', prop='pageviews', titles=u'Bellaterra|Cerdanyola del Vallès')
+
+		for page in result['query']['pages'].values():
+			if 'pageviews' in page:
+				print '{}'.format(page['title'].encode('utf8') )
+				pp.pprint( page['pageviews'] )
+
+				# Solve this case....
+
 
 if __name__ == "__main__":
 	main(sys.argv[1:])
