@@ -22,11 +22,11 @@ pp = pprint.PrettyPrinter(indent=4)
 
 def main(argv):
 
-        host = "localhost"
-        user = None
-        password = None
-        protocol = "http"
-        data = {}
+	host = "localhost"
+	user = None
+	password = None
+	protocol = "http"
+	data = {}
 	fileup = None
 
         
@@ -38,14 +38,14 @@ def main(argv):
 	if 'fileup' in args:
 		fileup = args.fileup
 
-        if data.has_key("mw"):
-                if data["mw"].has_key("host"):
+        if "mw" in data:
+                if "host" in data["mw"]:
                         host = data["mw"]["host"]
-                if data["mw"].has_key("user"):
+                if "user" in data["mw"]:
                         user = data["mw"]["user"]
-                if data["mw"].has_key("password"):
+                if "password" in data["mw"]:
                         pwd = data["mw"]["password"]
-                if data["mw"].has_key("protocol"):
+                if "protocol" in data["mw"]:
                         protocol = data["mw"]["protocol"]
         
         site = mwclient.Site((protocol, host))
