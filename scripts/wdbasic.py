@@ -56,9 +56,22 @@ def main(argv):
         # https://www.mediawiki.org/wiki/API:Search
 
         # https://www.wikidata.org/w/api.php?action=query&list=search&srsearch=Albert%20Einstein&utf8=
-
+        searchResult = site.search( searchStr )
+        for result in searchResult:
+                pp.pprint( result )
+                print(result.get('title'))
+        
+        querywb = {}
+        querywb["search"] = searchStr
+        querywb["language"] = lang
+        querywb["limit"] = 5
         
         # https://www.wikidata.org/w/api.php?action=wbsearchentities&search=".$search."&language=ca&limit=5&format=json";
+        wbSearchResult = site.api( 'wbsearchentities', "GET", **querywb )
+        if 'search' in wbSearchResult:
+                for result in wbSearchResult["search"]:
+                      pp.pprint( result )
+                      print(result.get('id'))              
 
 
         client = wikidata.client.Client()
