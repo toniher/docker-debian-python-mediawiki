@@ -26,6 +26,7 @@ def main(argv):
         ?uni wdt:P571 ?date .
         SERVICE wikibase:label { bd:serviceParam wikibase:language "ca" . }
         }
+        limit 10
         """
         
         sparql.setQuery( query )
@@ -34,19 +35,21 @@ def main(argv):
         results = sparql.query().convert()
         
         results_df = pandas.io.json.json_normalize(results['results']['bindings'])
+
+        # Noticice, this below is just for sake of combining 2 tools. We could get this straight from SPARQL
+        client = wikidata.client.Client()
+        web_url = client.get('P856')
         
         for index, row in results_df.iterrows():
                         pp.pprint( row )
-                        #urlvalue = row['item.value']
-                        #value = urlvalue.replace( "http://www.wikidata.org/entity/", "" )
-                        #print( value )
+                        urlvalue = row['uni.value']
+                        value = urlvalue.replace( "http://www.wikidata.org/entity/", "" )
+                        print( value )
+                        # URL of the website
+                        entity = client.get(value, load=True)
+                        url = entity[ web_url ]
+                        print( url )
 
-           
-
-
-        # client = wikidata.client.Client()
-        # entity = client.get('Q20145', load=True)
-        # pp.pprint( entity )
 
 if __name__ == "__main__":
         main(sys.argv[1:])

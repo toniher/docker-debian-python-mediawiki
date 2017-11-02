@@ -11,7 +11,6 @@ RUN pip install pandas
 RUN pip install jupyter
 
 VOLUME /notebooks
-WORKDIR /notebooks
 
 EXPOSE 8888
 
