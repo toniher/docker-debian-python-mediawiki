@@ -36,6 +36,10 @@ in order to retrieve IP of your container and modify JSON files
 
 Jupyter Notebooks are also provided.
 
+You might decide to mount a different volume for notebooks as well:
+
+    docker run -d -v $PWD/scripts:/scripts -v $PWD/notebooks:/notebooks --name mwclient debian-python-mediawiki tail -f /dev/null
+
 For running jupyter from container, you can run within /notebooks directory: 
 
     jupyter-notebook --no-browser --allow-root --ip 0.0.0.0
