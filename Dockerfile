@@ -7,3 +7,12 @@ RUN pip install wikidata
 RUN pip install SPARQLWrapper
 RUN pip install pandas
 
+# Adding Jupyter
+RUN pip install jupyter
+
+VOLUME /notebooks
+WORKDIR /notebooks
+
+EXPOSE 8888
+
+

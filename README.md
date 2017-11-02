@@ -28,9 +28,16 @@ For building and executing it for first time:
 
 * Mwclient Documentation and examples at: http://mwclient.readthedocs.io
 
-Use 
+Use
+
     docker inspect --format '{{ .NetworkSettings.IPAddress }}' containername 
 
 in order to retrieve IP of your container and modify JSON files
+
+Jupyter Notebooks are also provided.
+
+For running jupyter from container, you can run within /notebooks directory: 
+
+jupyter-notebook --no-browser --allow-root --ip 0.0.0.0
 
 
