@@ -55,7 +55,7 @@ def main(argv):
         # Full text search
         # https://www.mediawiki.org/wiki/API:Search
 
-        # https://www.wikidata.org/w/api.php?action=query&list=search&srsearch=Albert%20Einstein&utf8=
+        # https://www.wikidata.org/w/api.php?action=query&list=search&srsearch=Universitat_Autònoma_de_Barcelona&utf8=
         searchResult = site.search( searchStr )
         for result in searchResult:
                 pp.pprint( result )
@@ -66,17 +66,28 @@ def main(argv):
         querywb["language"] = lang
         querywb["limit"] = 5
         
-        # https://www.wikidata.org/w/api.php?action=wbsearchentities&search=".$search."&language=ca&limit=5&format=json";
+        
+        # Wikidata client
+        client = wikidata.client.Client()
+
+        # Prop instance
+        instance_prop = client.get('P31')
+
+        
+        # https://www.wikidata.org/w/api.php?action=wbsearchentities&search=Universitat_Autònoma_de_Barcelona&language=ca&limit=5&format=json";
         wbSearchResult = site.api( 'wbsearchentities', "GET", **querywb )
         if 'search' in wbSearchResult:
                 for result in wbSearchResult["search"]:
-                      pp.pprint( result )
-                      print(result.get('id'))              
+                        #pp.pprint( result )
+                        print(result.get('id'))
+                        entity = client.get( result.get('id'), load=True)
+                        print( entity.label )
+                        print( entity.description )
+                        if instance_prop in entity:
+                                instance = entity[ instance_prop ]
+                                print( instance.label )
+                                
 
-
-        client = wikidata.client.Client()
-        entity = client.get('Q20145', load=True)
-        pp.pprint( entity )
 
 if __name__ == "__main__":
         main(sys.argv[1:])
