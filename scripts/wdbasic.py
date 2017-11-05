@@ -58,7 +58,7 @@ def main(argv):
         # https://www.wikidata.org/w/api.php?action=query&list=search&srsearch=Universitat_Autònoma_de_Barcelona&utf8=
         searchResult = site.search( searchStr )
         for result in searchResult:
-                pp.pprint( result )
+                # pp.pprint( result ) Careful printing Unicode
                 print(result.get('title'))
         
         querywb = {}
@@ -81,7 +81,7 @@ def main(argv):
                         #pp.pprint( result )
                         print(result.get('id'))
                         entity = client.get( result.get('id'), load=True)
-                        print( entity.label )
+                        print( ( str( entity.label ) ).encode('utf-8') )
                         print( entity.description )
                         if instance_prop in entity:
                                 instance = entity[ instance_prop ]

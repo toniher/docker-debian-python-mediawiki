@@ -41,7 +41,7 @@ def main(argv):
         web_url = client.get('P856')
         
         for index, row in results_df.iterrows():
-                        pp.pprint( row )
+                        # pp.pprint( row ) Careful unicode
                         urlvalue = row['uni.value']
                         value = urlvalue.replace( "http://www.wikidata.org/entity/", "" )
                         print( value )
