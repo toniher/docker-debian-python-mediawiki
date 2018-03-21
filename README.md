@@ -38,10 +38,19 @@ Jupyter Notebooks are also provided.
 
 You might decide to mount a different volume for notebooks as well:
 
-    docker run -d -v $PWD/scripts:/scripts -v $PWD/notebooks:/notebooks --name mwclient debian-python-mediawiki tail -f /dev/null
+    docker run -d -p 8888:8888 -v $PWD/scripts:/scripts -v $PWD/notebooks:/notebooks --name mwclient debian-python-mediawiki tail -f /dev/null
 
 For running jupyter from container, you can run within /notebooks directory: 
 
+
+    
+    docker exec -ti mwclient /bin/bash
+    cd /notebooks
     jupyter-notebook --no-browser --allow-root --ip 0.0.0.0
+
+
+or
+
+    docker exec mwclient /bin/bash -c "cd /notebooks; jupyter-notebook --no-browser --allow-root --ip 0.0.0.0"
 
 

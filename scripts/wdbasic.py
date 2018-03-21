@@ -14,6 +14,7 @@ import pprint
 
 parser = argparse.ArgumentParser(description="""Script for testing MediaWiki API""")
 parser.add_argument("-config",help="""Path to a JSON file with configuration options!""")
+parser.add_argument("-search",help="""Search String""")
 args = parser.parse_args()
 
 pp = pprint.PrettyPrinter(indent=4)
@@ -27,10 +28,14 @@ def main(argv):
         protocol = "http"
         lang = "ca"
         data = {}
+        # Search string
+        searchStr = u"Universitat Autònoma de Barcelona"
         
         if "config" in args:
                 with open(args.config) as json_data_file:
                                 data = json.load(json_data_file)
+        if "search" in args:
+                searchStr = args.search
         
         if "mw" in data:
                 if "host" in data["mw"]:
@@ -45,8 +50,7 @@ def main(argv):
                         lang = data["mw"]["lang"]
                         
         
-        # Search string
-        searchStr = u"Universitat Autònoma de Barcelona"
+
         
         # Connect wikidata
         site = mwclient.Site((protocol, host))
@@ -59,7 +63,7 @@ def main(argv):
         searchResult = site.search( searchStr )
         for result in searchResult:
                 # pp.pprint( result ) Careful printing Unicode
-                print(result.get('title'))
+                print("-"+result.get('title'))
         
         querywb = {}
         querywb["search"] = searchStr
@@ -79,7 +83,7 @@ def main(argv):
         if 'search' in wbSearchResult:
                 for result in wbSearchResult["search"]:
                         #pp.pprint( result )
-                        print(result.get('id'))
+                        print( "*"+result.get('id'))
                         entity = client.get( result.get('id'), load=True)
                         print( ( str( entity.label ) ).encode('utf-8') )
                         print( entity.description )

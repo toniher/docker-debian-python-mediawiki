@@ -13,6 +13,7 @@ import pprint
 
 parser = argparse.ArgumentParser(description="""Script for testing MediaWiki API""")
 parser.add_argument("-config",help="""Path to a JSON file with configuration options!""")
+parser.add_argument("-page",help="""Page name""")
 args = parser.parse_args()
 
 pp = pprint.PrettyPrinter(indent=4)
@@ -23,12 +24,17 @@ def main(argv):
         user = None
         password = None
         protocol = "http"
-        data = {}
-        
+        data = {} 
+        querypage = u'Universitat Autònoma de Barcelona'
+
         if "config" in args:
                 with open(args.config) as json_data_file:
                         data = json.load(json_data_file)
         
+
+        if "page" in args:
+	        querypage = args.page
+
         
         if "mw" in data:
                 if "host" in data["mw"]:
@@ -51,7 +57,7 @@ def main(argv):
         
         # Retrieve content from article
         # Notice unicode stuff
-        page = site.pages[u'Universitat Autònoma de Barcelona']
+        page = site.pages[ querypage ]
         
         if page.exists :
                 # Notice if priting in utf8
@@ -70,10 +76,6 @@ def main(argv):
                 for image in images :
                         print( image.name.encode('utf8') )
                                 
-                # Get all images https://www.mediawiki.org/wiki/API:Images
-                images = page.images()
-                for image in images :
-                        print( image.name.encode('utf8') )
 
                 # Get all revisions https://www.mediawiki.org/wiki/API:Main_page
                 revisions = page.revisions()
@@ -81,7 +83,6 @@ def main(argv):
                         dt = datetime.datetime.fromtimestamp( time.mktime( revision['timestamp'] ) )
                         revtime = '{}'.format(dt.strftime('%F %T'))
                         print( revision['user'].encode('utf8') + " on ".encode('utf8') + revtime.encode('utf8') )
-
 
 
                 # Retrieve pageviews
