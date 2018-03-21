@@ -32,8 +32,8 @@ def main(argv):
                         data = json.load(json_data_file)
         
 
-        if "page" in args:
-	        querypage = args.page
+        if args.page is not None:
+                querypage = args.page
 
         
         if "mw" in data:

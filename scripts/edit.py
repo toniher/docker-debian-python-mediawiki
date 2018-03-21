@@ -35,7 +35,7 @@ def main(argv):
                         data = json.load(json_data_file)
         
 
-	if 'fileup' in args:
+	if args.fileup is not None:
 		fileup = args.fileup
 
         if "mw" in data:

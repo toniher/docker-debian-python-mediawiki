@@ -14,7 +14,7 @@ import pprint
 
 parser = argparse.ArgumentParser(description="""Script for testing MediaWiki API""")
 parser.add_argument("-config",help="""Path to a JSON file with configuration options!""")
-parser.add_argument("-search",help="""Search String""")
+parser.add_argument("-search", help="""Search String""")
 args = parser.parse_args()
 
 pp = pprint.PrettyPrinter(indent=4)
@@ -34,7 +34,8 @@ def main(argv):
         if "config" in args:
                 with open(args.config) as json_data_file:
                                 data = json.load(json_data_file)
-        if "search" in args:
+        
+        if args.search is not None:
                 searchStr = args.search
         
         if "mw" in data:

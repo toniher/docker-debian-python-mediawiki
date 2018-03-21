@@ -15,6 +15,11 @@ import pprint
 
 pp = pprint.PrettyPrinter(indent=4)
 
+parser = argparse.ArgumentParser(description="""Script for testing SPARQL API""")
+parser.add_argument("-query", help="""Path to a SPAQL query file""")
+parser.add_argument("-property", help="""Additional property to search""")
+args = parser.parse_args()
+
 def main(argv):
 
 
@@ -29,6 +34,14 @@ def main(argv):
         limit 10
         """
         
+        propId = 'P856'
+        
+        if args.query is not None:
+                with open(args.query) as queryfile:
+                                query = queryfile.read()
+        if args.property is not None:
+                propId = args.property    
+        
         sparql.setQuery( query )
         
         sparql.setReturnFormat(JSON)
@@ -38,7 +51,7 @@ def main(argv):
 
         # Noticice, this below is just for sake of combining 2 tools. We could get this straight from SPARQL
         client = wikidata.client.Client()
-        web_url = client.get('P856')
+        web_url = client.get(propId)
         
         for index, row in results_df.iterrows():
                         # pp.pprint( row ) # Careful unicode
