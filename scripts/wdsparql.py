@@ -41,14 +41,21 @@ def main(argv):
         web_url = client.get('P856')
         
         for index, row in results_df.iterrows():
-                        # pp.pprint( row ) Careful unicode
+                        # pp.pprint( row ) # Careful unicode
                         urlvalue = row['uni.value']
                         value = urlvalue.replace( "http://www.wikidata.org/entity/", "" )
-                        print( value )
+                        print( "*" + value )
+                        if 'uniLabel.value' in row:
+                                if row['uniLabel.value'] != value :
+                                                print( ": "+row['uniLabel.value'] )
+                                else :
+                                                print( ": NA ")
                         # URL of the website
                         entity = client.get(value, load=True)
-                        url = entity[ web_url ]
-                        print( url )
+                        # pp.pprint( entity )
+                        if web_url in entity:
+                                url = entity[ web_url ]
+                                print( "@ " + url )
 
 
 if __name__ == "__main__":
