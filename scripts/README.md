@@ -1,4 +1,4 @@
-== Running scripts ==
+## Running scripts
 
 From Catalan Wikipedia, it retrieve all text, links, images, and pageviews of a querypage 
 
