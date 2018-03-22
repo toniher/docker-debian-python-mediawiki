@@ -60,7 +60,7 @@ def main(argv):
                         print( "*" + value )
                         if 'uniLabel.value' in row:
                                 if row['uniLabel.value'] != value :
-                                                print( ": "+row['uniLabel.value'] )
+                                                print( u": "+row['uniLabel.value'] )
                                 else :
                                                 print( ": NA ")
                         # URL of the website
@@ -68,7 +68,7 @@ def main(argv):
                         # pp.pprint( entity )
                         if web_url in entity:
                                 url = entity[ web_url ]
-                                print( "@ " + url )
+                                print( u"@ " + url )
 
 
 if __name__ == "__main__":
