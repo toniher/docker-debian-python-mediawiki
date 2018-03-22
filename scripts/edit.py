@@ -29,50 +29,49 @@ def main(argv):
 	data = {}
 	fileup = None
 
-        
-        if 'config' in args:
-                with open(args.config) as json_data_file:
-                        data = json.load(json_data_file)
-        
+	if 'config' in args:
+		with open(args.config) as json_data_file:
+			data = json.load(json_data_file)
+
 
 	if args.fileup is not None:
 		fileup = args.fileup
 
-        if "mw" in data:
-                if "host" in data["mw"]:
-                        host = data["mw"]["host"]
-                if "user" in data["mw"]:
-                        user = data["mw"]["user"]
-                if "password" in data["mw"]:
-                        pwd = data["mw"]["password"]
-                if "protocol" in data["mw"]:
-                        protocol = data["mw"]["protocol"]
-        
-        site = mwclient.Site((protocol, host))
-        
-        if user and pwd :
-                # Login parameters
-                site.login(user, pwd)
-
-        
-        page = site.pages[u'Hacking']
-        
-        if page.can('edit') :
-
+	if "mw" in data:
+		if "host" in data["mw"]:
+			host = data["mw"]["host"]
+		if "user" in data["mw"]:
+			user = data["mw"]["user"]
+		if "password" in data["mw"]:
+			pwd = data["mw"]["password"]
+		if "protocol" in data["mw"]:
+			protocol = data["mw"]["protocol"]
+	
+	site = mwclient.Site((protocol, host))
+	
+	if user and pwd :
+		# Login parameters
+		site.login(user, pwd)
+	
+	
+	page = site.pages[u'Hacking']
+	
+	if page.can('edit') :
+	
 		page.save(u'My first hacking', summary=u'I did it', minor=False, bot=True )
-
+	
 		if page.exists :
-
+	
 			text = page.text()
 			more = u'My little pony'
-
+	
 			text = text+more
 			page.save( text, summary=u'I did it again', minor=False, bot=True )
-
-
+	
+	
 	if fileup :
 		site.upload(open( fileup ), 'myfile.jpg', 'My image')
-		
+
 
 if __name__ == "__main__":
 	main(sys.argv[1:])
