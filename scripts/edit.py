@@ -63,14 +63,14 @@ def main(argv):
 		if page.exists :
 	
 			text = page.text()
-			more = u'My little pony'
+			more = u'My little pony. [[File:Myfile.jpg|200px]]'
 	
 			text = text+more
 			page.save( text, summary=u'I did it again', minor=False, bot=True )
 	
 	
 	if fileup :
-		site.upload(open( fileup ), 'myfile.jpg', 'My image')
+		site.upload(open( fileup, 'rb' ), 'myfile.jpg', 'My image')
 
 
 if __name__ == "__main__":
