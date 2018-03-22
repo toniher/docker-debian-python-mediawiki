@@ -86,7 +86,7 @@ def main(argv):
 
 
                 # Retrieve pageviews
-                result = site.api('query', prop='pageviews', titles=u'Bellaterra|Cerdanyola del Vallès')
+                result = site.api('query', prop='pageviews', titles=querypage )
                 
                 for page in result['query']['pages'].values():
                         if 'pageviews' in page:
