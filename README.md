@@ -23,7 +23,7 @@ You can find it at: https://github.com/toniher/docker-SemanticMediaWiki
 
 For building and executing it for first time:
 
-    sh smw.sh
+    bash smw.sh
 
 
 * Mwclient Documentation and examples at: http://mwclient.readthedocs.io

@@ -1,11 +1,11 @@
-FROM biocorecrg/debian-perlbrew-pyenv3
+FROM biocorecrg/debian-perlbrew-pyenv3:buster
 
 VOLUME /scripts
 
-RUN pip install mwclient
-RUN pip install wikidata
-RUN pip install SPARQLWrapper
-RUN pip install pandas
+RUN pip install mwclient==0.10.0 
+RUN pip install wikidata==0.6.1
+RUN pip install SPARQLWrapper==1.8.4 
+RUN pip install pandas==0.25.1
 
 # Adding Jupyter
 RUN pip install jupyter
